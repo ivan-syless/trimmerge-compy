@@ -21,7 +21,7 @@ You pick a video, type your timestamps (for example `00:05:32 to 00:08:56`), and
 ## 1. What it can do
 
 - **Simple GUI.** Pick a file, paste timestamps, click *Create compilation*. No command line needed.
-![Diagram](sources/gui.png)
+![Diagram](sources/gui.png) 
 - **Full file inspection.** On opening a video it shows container format, duration, and every stream: video codec/profile, resolution, pixel format (bit depth), frame rate, HDR type, bitrate, audio codecs/languages/channel layouts, subtitle formats/languages, and default/forced flags, each with its stream index.
 - **Flexible timestamp input.** One range per line or comma-separated. Accepts `HH:MM:SS`, `MM:SS`, fractional seconds, and `to`, `-`, `–`, `until`, `->` as separators.
 - **Order is preserved.** Scenes are joined in exactly the order you list them.
