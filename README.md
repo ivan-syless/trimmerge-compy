@@ -1,5 +1,7 @@
 # Trim - Merge - Compile
 
+**Vibe-coded**
+
 A small desktop app (Python + Tkinter + FFmpeg) that cuts selected scenes out of a movie and joins them into **one compilation video**, while keeping **every audio track and every subtitle track** intact.
 
 You pick a video, type your timestamps (for example `00:05:32 to 00:08:56`), and click one button. Your original file is never touched.
