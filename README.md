@@ -1,4 +1,4 @@
-# Scene Compiler
+# Trim - Merge - compile
 
 A small desktop app (Python + Tkinter + FFmpeg) that cuts selected scenes out of a movie and joins them into **one compilation video**, while keeping **every audio track and every subtitle track** intact.
 
