@@ -166,6 +166,17 @@ def build_maps(info, include_attachments=True):
     return maps, main_video
 
 
+def subtitle_args(info):
+    """MP4 'mov_text' subtitles can't be stored in Matroska: convert just those tracks to SRT."""
+    args, k = [], 0
+    for s in info.get("streams", []):
+        if s.get("codec_type") == "subtitle":
+            if s.get("codec_name") == "mov_text":
+                args += [f"-c:s:{k}", "srt"]
+            k += 1
+    return args
+
+
 def video_args(main, mode, preset, crf):
     if mode == "copy" or main is None:
         return ["-c", "copy"]
@@ -441,6 +452,9 @@ class App:
             self.say("log", f"Temporary folder: {tmp}")
             maps, main = build_maps(self.info)
             vargs = video_args(main, mode, preset, crf)
+            sargs = subtitle_args(self.info)
+            if sargs:
+                self.say("log", "Note: mov_text subtitles (MP4) will be converted to SRT for MKV.")
             n = len(ranges)
             segs = []
 
@@ -451,7 +465,7 @@ class App:
                 dur = b - a
                 self.say("log", f"[{i}/{n}] Cutting {fmt_time(a)} → {fmt_time(b)}")
                 cmd = (base_cmd + ["-ss", f"{a:.3f}", "-i", str(src), "-t", f"{dur:.3f}"]
-                       + maps + vargs
+                       + maps + vargs + sargs
                        + ["-map_metadata", "0", "-map_chapters", "-1",
                           "-avoid_negative_ts", "make_zero", str(seg)])
                 rc, errs = self.run_ffmpeg(cmd, tmp, dur, base=(i - 1) / n * 100, span=100 / n,
